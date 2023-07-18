@@ -21,6 +21,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
+    "noImplicitAny": false,
     "baseUrl": "./",
     "paths": {
       "@": [

@@ -2,7 +2,7 @@
   <div>
     <div class="common-layout">
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>头部信息</el-header>
         <el-container>
           <el-aside>
             <Aside></Aside>
@@ -16,7 +16,14 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { onMounted } from "vue";
 import Aside from "./Aside.vue";
+import axios from "axios";
+onMounted(() => {
+  axios.get("/basic-api/getUserInfo").then((res) => {
+    console.log(res.data);
+  });
+});
 </script>
 <style scoped lang="less">
 .common-layout {
