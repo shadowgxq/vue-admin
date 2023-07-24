@@ -1,20 +1,32 @@
 import { getToken } from '@/util/auth';
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
-const service = axios.create({
-	baseURL: '/',
-	timeout: 50000,
-	headers: {
-		'Content-Type': 'application/json',
-	},
-});
+// Create a function to handle the request
+function service<T>(config: AxiosRequestConfig): Promise<T> {
+	const instance = axios.create({
+		baseURL: '/basic-api',
+		timeout: 50000,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
 
-service.interceptors.request.use((config) => {
-	if (getToken()) {
-		config.headers.Authorization = `Bearer ${getToken()}`;
-	}
-}, (error) => {
+	instance.interceptors.request.use((config) => {
+		const token = getToken();
+		if (token) {
+			config.headers.authorization = `${token}`;
+		}
+		return config;
+	});
 
-})
+	// Use generics to directly specify the response data type
+	return instance(config)
+		.then((response: AxiosResponse<T>) => {
+			return response.data;
+		})
+		.catch((error: AxiosError) => {
+			throw error;
+		});
+}
 
 export default service;

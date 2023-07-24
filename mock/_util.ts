@@ -51,10 +51,10 @@ export interface requestParams {
     query: any;
 }
 
-/**
- * @description 本函数用于从request数据中获取token，请根据项目的实际情况修改
- *
- */
-export function getRequestToken({ headers }: requestParams): string | undefined {
-    return headers?.authorization;
+export function getRequestToken({ headers }: requestParams): string | null {
+    /**
+     * return headers?.authorization
+     * 需要配置vite-plugin-mock
+     */
+    return JSON.parse(localStorage.getItem("TOKEN_S"))?.value
 }

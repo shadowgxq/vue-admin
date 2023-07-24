@@ -1,12 +1,15 @@
+//持久化
 export class Persistent {
-    private static memoryStorage: { [key: string]: { value: any, expiration?: number } } = {};
-
     static getLocal<T>(key: string): Nullable<T> {
-        const item = this.memoryStorage[key];
-        if (item && (!item.expiration || Date.now() < item.expiration)) {
-            return item.value;
-        } else {
-            Reflect.deleteProperty(this.memoryStorage, key)
+        const item = localStorage.getItem(key);
+        if (item) {
+            const parsedItem = JSON.parse(item);
+            if (!parsedItem.expiration || Date.now() < parsedItem.expiration) {
+                return parsedItem.value;
+            } else {
+                //remove fail key
+                localStorage.removeItem(key); 
+            }
         }
         return null;
     }
@@ -16,11 +19,10 @@ export class Persistent {
             value: value,
             expiration: expiration ? Date.now() + expiration : undefined
         };
-        this.memoryStorage[key] = item;
+        localStorage.setItem(key, JSON.stringify(item));
     }
-    
+
+    static removeLocal(key: string) {
+        localStorage.removeItem(key)
+    }
 }
-function initPersistent() {
-    
-}
-initPersistent()

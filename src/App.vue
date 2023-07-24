@@ -1,41 +1,8 @@
 <template>
-  <div>
-    <div class="common-layout">
-      <el-container>
-        <el-header>头部信息</el-header>
-        <el-container>
-          <el-aside>
-            <Aside></Aside>
-          </el-aside>
-          <el-main>
-            <router-view></router-view>
-          </el-main>
-        </el-container>
-      </el-container>
-    </div>
+  <div class="app">
+    <router-view></router-view>
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import Aside from "./Aside.vue";
-import axios from "axios";
-onMounted(() => {
-  axios.get("/basic-api/getUserInfo").then((res) => {
-    console.log(res.data);
-  });
-});
 </script>
-<style scoped lang="less">
-.common-layout {
-  .el-header,
-  .el-footer {
-    background-color: var(--el-color-primary-light-7);
-    color: var(--el-text-color-primary);
-    text-align: center;
-  }
-
-  .el-aside {
-    width: 200px;
-  }
-}
-</style>
+<style scoped lang="less"></style>

@@ -1,5 +1,4 @@
 import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
-import { MockMethod } from 'vite-plugin-mock';
 import { createFakeUserList } from './user';
 
 // single
@@ -241,7 +240,7 @@ export default [
         timeout: 1000,
         method: 'get',
         response: (request: requestParams) => {
-            const token = getRequestToken(request);
+            const token = getRequestToken(request)
             if (!token) {
                 return resultError('Invalid token!');
             }

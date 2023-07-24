@@ -1,12 +1,14 @@
 <template>
-    <button @click="handleSetLocal">setLocal</button>
-    <button @click="handleSetLocal">getLocal</button>
-    <button @click="handleSetLocal">removeLocal</button>
+  <div>Demo</div>
+  <div>{{ permissionStore.permCodeList }}</div>
+  <button @click="handleChange">change</button>
 </template>
 <script setup lang="ts">
-import { Persistent } from '@/util/persistent';
-function handleSetLocal() {
-    Persistent.setLocal('token', 'sdjfiujkejksjbjxfhdshfjk')
+import { Persistent } from "@/util/persistent";
+import { usePermissionStore } from "@/store/modules/permission";
+const permissionStore = usePermissionStore();
+function handleChange() {
+  permissionStore.setPermCodeList([100, 200, 300]);
 }
 </script>
 <style lang="less" scoped></style>
