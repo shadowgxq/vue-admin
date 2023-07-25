@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getMenuList } from '@/api/sys/menu';
 import { RouteItem } from '@/core/models';
+import { generateMenu } from '@/router/tools/generateMenu';
 export const usePermissionStore = defineStore({
     id: "permission",
     state: () => ({
@@ -11,11 +12,16 @@ export const usePermissionStore = defineStore({
         setPermCodeList(list: Array<number>) {
             this.permCodeList = list
         },
-        async buildRoutes() {
+        setBackMenuList(list) {
+            this.backMenuList = list
+        },
+        async buildRoutes(): Promise<RouteItem[]> {
             let routesList: RouteItem[] = [];
-            routesList = (await getMenuList()) as RouteItem[];
-            console.log(routesList)
-
+            routesList = (await getMenuList()).result as RouteItem[];
+            routesList = generateMenu(routesList)
+            this.setBackMenuList(routesList);
+            
+            return routesList
         }
     }
 })

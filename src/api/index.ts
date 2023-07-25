@@ -1,4 +1,4 @@
-import { getToken } from '@/util/auth';
+import { getToken } from '@/util';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 // Create a function to handle the request

@@ -2,10 +2,7 @@ import { TOKEN_S } from '@/core/code/core.code';
 import { Persistent } from './persistent'
 
 export function getToken() {
-    return getAuthCache(TOKEN_S) 
-}
-export function setToken<T>(value: T, expiration = 0) {
-    return setAuthCache(TOKEN_S, value, expiration);
+    return getAuthCache(TOKEN_S)
 }
 
 //basic auth func

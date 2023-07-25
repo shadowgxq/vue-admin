@@ -38,7 +38,7 @@ function createPermissionGuard(router: Router) {
             next(loginRouter)
             return
         }
-
+        //match routerlist
 
     })
 }
