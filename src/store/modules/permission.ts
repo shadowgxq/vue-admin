@@ -7,7 +7,13 @@ export const usePermissionStore = defineStore({
     state: () => ({
         permCodeList: [1000, 2000, 300],
         backMenuList: [],
+        hasAddedRoute: false
     }),
+    getters: {
+        getHasAddedRoute(state) {
+            return state.hasAddedRoute
+        }
+    },
     actions: {
         setPermCodeList(list: Array<number>) {
             this.permCodeList = list
@@ -15,12 +21,14 @@ export const usePermissionStore = defineStore({
         setBackMenuList(list) {
             this.backMenuList = list
         },
+        setHasAddedRoute(state: boolean) {
+            this.hasAddedRoute = state
+        },
         async buildRoutes(): Promise<RouteItem[]> {
             let routesList: RouteItem[] = [];
             routesList = (await getMenuList()).result as RouteItem[];
             routesList = generateMenu(routesList)
             this.setBackMenuList(routesList);
-            
             return routesList
         }
     }
