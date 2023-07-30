@@ -6,13 +6,15 @@
       <el-aside>
         <Aside></Aside>
       </el-aside>
-      <el-main> </el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import Aside from "./Aside.vue";
+import Aside from "./sider/Aside.vue";
 </script>
 <style lang="less" scoped>
 .el-header,

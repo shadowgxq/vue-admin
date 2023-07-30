@@ -1,6 +1,19 @@
+import { HOME_ROUTE } from '@/core';
+
 //静态路由表
 export const whitePathList = ["/login"]
-export const baseRouter = [
+
+
+export const RootRoute = {
+    path: '/',
+    name: 'Root',
+    redirect: HOME_ROUTE,
+    meta: {
+        title: 'Root',
+    },
+};
+
+export const BaseRouter = [
     {
         path: "/demo",
         name: "demo",
