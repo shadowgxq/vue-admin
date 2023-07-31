@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { getMenuList } from '@/api/sys/menu';
 import { RouteItem } from '@/core/models';
-import { generateMenu } from '@/router/tools/generateMenu';
+import { generateRouterList } from '@/router/tools/generateRouterList';
 export const usePermissionStore = defineStore({
     id: "permission",
     state: () => ({
@@ -27,7 +27,7 @@ export const usePermissionStore = defineStore({
         async buildRoutes(): Promise<RouteItem[]> {
             let routesList: RouteItem[] = [];
             routesList = (await getMenuList()).result as RouteItem[];
-            routesList = generateMenu(routesList)
+            routesList = generateRouterList(routesList)
             this.setBackMenuList(routesList);
             return routesList
         }
