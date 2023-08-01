@@ -1,5 +1,5 @@
 <template>
-    <el-main>
+    <el-main class="main-layout">
         <router-view></router-view>
     </el-main>
 </template>
@@ -8,4 +8,8 @@
 
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.main-layout {
+    background-color: @grey-background-color;
+}
+</style>

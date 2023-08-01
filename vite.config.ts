@@ -6,6 +6,15 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 
 export default defineConfig({
+    css: {
+        preprocessorOptions: {
+            less: {
+                additionalData: `
+                @import "${path.resolve(__dirname, 'src/assets/css/variables.less')}";
+                `
+            }
+        }
+    },
     plugins: [
         AutoImport({
             resolvers: [ElementPlusResolver()],

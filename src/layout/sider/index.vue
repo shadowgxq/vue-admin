@@ -6,4 +6,8 @@
 <script setup lang="ts">
 import Menu from '../menu/index.vue'
 </script>
-<style lang="less"></style>
+<style lang="less">
+.el-aside {
+    width: auto;
+}
+</style>

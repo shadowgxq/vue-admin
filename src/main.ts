@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/reset.less'
+import './assets/css/index.less'
 import { setupRouter } from './router/index'
 import '../mock/_index'
 import { setupStore } from './store'

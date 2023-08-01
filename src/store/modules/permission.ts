@@ -12,6 +12,9 @@ export const usePermissionStore = defineStore({
     getters: {
         getHasAddedRoute(state) {
             return state.hasAddedRoute
+        },
+        getBackMenuList(state) {
+            return state.backMenuList
         }
     },
     actions: {
