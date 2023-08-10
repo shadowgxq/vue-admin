@@ -4,7 +4,7 @@
 <script setup lang="ts"></script>
 <style lang="less" scoped>
 .copyright {
-  background-color: @grey-background-color;
+  background-color: @--shaodw-grey-color;
   text-align: center;
 }
 </style>

@@ -10,6 +10,6 @@
 
 <style lang="less" scoped>
 .main-layout {
-    background-color: @grey-background-color;
+    background-color: @--shaodw-grey-color;
 }
 </style>

@@ -31,7 +31,7 @@ function toggleCollapse() {
 
 <style lang="less" scoped>
 .el-menu {
-    height: calc(100vh - @header-height);
+    height: calc(100vh - @--shaodw-header-height);
 
 }
 

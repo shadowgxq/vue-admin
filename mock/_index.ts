@@ -8,6 +8,7 @@ Object.keys(modules).forEach((key) => {
 	}
 	mockModules.push(...modules[key].default);
 });
+
 //mock导入
 if (import.meta.env.DEV) {
 	mockModules.forEach((module) => {

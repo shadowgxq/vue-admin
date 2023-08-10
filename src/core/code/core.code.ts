@@ -7,6 +7,7 @@ export const PAGENOTFOUND = () => import('@/views/sys/404.vue')
 
 export const HOME_ROUTE = '/dashboard'
 
+export const DOMAIN = 'https://www.baidu.com'
 
 export const PAGE_NOT_FOUND_ROUTE = {
     path: '/:path(.*)*',
