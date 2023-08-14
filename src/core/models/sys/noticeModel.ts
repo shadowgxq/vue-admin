@@ -4,6 +4,7 @@ export interface NoticeItem {
     title: string,
     datetime: string,
     type: string,
+    description?: string
 }
 
 /**

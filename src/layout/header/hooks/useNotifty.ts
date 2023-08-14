@@ -1,6 +1,6 @@
 import { getNoticesList, } from '@/api/sys/notices'
 import { getNoticesListModule } from '@/core/models';
-import { TabsPaneContext } from 'element-plus/es/components/index.js';
+import { TabsPaneContext } from 'element-plus/lib/components/tabs/src/constants.js';
 import { onMounted, reactive, ref } from 'vue'
 
 export type TState = {
@@ -40,9 +40,9 @@ export const useNotifty = () => {
         })
     }
 
-    const handleClick = (tab: TabsPaneContext, event: Event) => {
+    const handleTabs = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
-        debugger
+        let pane = tab.paneName as string
         state.activeName = pane
         state.renderData = state.data.filter(i => i.type == pane)
     }

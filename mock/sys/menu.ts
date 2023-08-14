@@ -10,7 +10,7 @@ const dashboardRoute = {
     meta: {
         title: 'routes.dashboard.dashboard',
         hideChildrenInMenu: true,
-        icon: 'bx:bx-home',
+        icon: 'HomeFilled',
     },
     children: [
         {
@@ -18,11 +18,10 @@ const dashboardRoute = {
             name: 'Analysis',
             component: '/dashboard/analysis/index',
             meta: {
-                hideMenu: true,
+                hideMenu: false,
                 hideBreadcrumb: true,
                 title: 'routes.dashboard.analysis',
                 currentActiveMenu: '/dashboard',
-                icon: 'bx:bx-home',
             },
         },
         {
@@ -30,11 +29,10 @@ const dashboardRoute = {
             name: 'Workbench',
             component: '/dashboard/workbench/index',
             meta: {
-                hideMenu: true,
+                hideMenu: false,
                 hideBreadcrumb: true,
                 title: 'routes.dashboard.workbench',
                 currentActiveMenu: '/dashboard',
-                icon: 'bx:bx-home',
             },
         },
     ],
@@ -46,7 +44,6 @@ const backRoute = {
     meta: {
         title: 'routes.demo.permission.back',
     },
-
     children: [
         {
             path: 'page',
@@ -73,7 +70,7 @@ const authRoute = {
     component: 'LAYOUT',
     redirect: '/permission/front/page',
     meta: {
-        icon: 'carbon:user-role',
+        icon: 'UserFilled',
         title: 'routes.demo.permission.permission',
     },
     children: [backRoute],
@@ -85,7 +82,7 @@ const levelRoute = {
     component: 'LAYOUT',
     redirect: '/level/menu1/menu1-1',
     meta: {
-        icon: 'carbon:user-role',
+        icon: 'List',
         title: 'routes.demo.level.level',
     },
 
@@ -141,7 +138,7 @@ const sysRoute = {
     component: 'LAYOUT',
     redirect: '/system/account',
     meta: {
-        icon: 'ion:settings-outline',
+        icon: 'Setting',
         title: 'routes.demo.system.moduleName',
     },
     children: [
@@ -211,7 +208,7 @@ const linkRoute = {
     name: 'Link',
     component: 'LAYOUT',
     meta: {
-        icon: 'ion:tv-outline',
+        icon: 'Link',
         title: 'routes.demo.iframe.frame',
     },
     children: [
@@ -222,15 +219,7 @@ const linkRoute = {
                 title: 'routes.demo.iframe.doc',
                 frameSrc: 'https://doc.vvbin.cn/',
             },
-        },
-        {
-            path: 'https://doc.vvbin.cn/',
-            name: 'DocExternal',
-            component: 'LAYOUT',
-            meta: {
-                title: 'routes.demo.iframe.docExternal',
-            },
-        },
+        }
     ],
 };
 

@@ -7,13 +7,13 @@
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item><el-icon color="rgba(0,0,0,.8)">
+                    <el-dropdown-item @click="handleDropdownItem('center')"><el-icon color="rgba(0,0,0,.8)">
                             <User />
                         </el-icon>个人中心</el-dropdown-item>
-                    <el-dropdown-item><el-icon color="rgba(0,0,0,.8)">
+                    <el-dropdown-item @click="handleDropdownItem('setting')"><el-icon color="rgba(0,0,0,.8)">
                             <Setting />
                         </el-icon>个人设置</el-dropdown-item>
-                    <el-dropdown-item><el-icon color="rgba(0,0,0,.8)">
+                    <el-dropdown-item @click="handleDropdownItem('loginout')"><el-icon color="rgba(0,0,0,.8)">
                             <SwitchButton />
                         </el-icon>退出登录</el-dropdown-item>
                 </el-dropdown-menu>
@@ -23,11 +23,24 @@
 </template>
 
 <script setup lang="ts">
+type TDropdown = "center" | "setting" | "loginout"
 
+function handleDropdownItem(type: TDropdown) {
+    switch (type) {
+        case "center":
+
+            break;
+        case "setting":
+
+            break;
+        case "loginout":
+            
+            break;
+    }
+}   
 </script>
 
 <style lang="less" scoped>
-
 .usename {
     color: @--shadow-white1;
     display: flex;

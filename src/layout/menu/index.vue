@@ -3,11 +3,10 @@
         <el-menu class="el-menu-container" mode="vertical" :default-active="state.activePath" :collapse="state.isCollapse"
             :unique-opened="true" :router="true" @select="handleMenuSelect">
             <menu-list :routes="menusRef"></menu-list>
-            <button @click="toggleCollapse">
-                {{ state.isCollapse ? '展开菜单' : '折叠菜单' }}
-            </button>
+            <div class="menu-control-expand" @click="toggleCollapse">
+                <el-icon class="menu-control-expand-icon"><Expand /></el-icon>
+            </div>
         </el-menu>
-
     </el-col>
 </template>
 <script setup lang="ts">
@@ -37,5 +36,19 @@ function toggleCollapse() {
 
 .el-menu-container:not(.el-menu--collapse) {
     width: 200px;
+}
+.menu-control-expand {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-top: 1px solid rgba(0,0,0,.06);
+    .menu-control-expand-icon {
+        color: @--shadow-black;
+    }
 }
 </style>
