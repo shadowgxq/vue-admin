@@ -15,7 +15,7 @@ const dashboardRoute = {
     children: [
         {
             path: 'analysis',
-            name: 'Analysis',
+            name: '分析页',
             component: '/dashboard/analysis/index',
             meta: {
                 hideMenu: false,
@@ -26,7 +26,7 @@ const dashboardRoute = {
         },
         {
             path: 'workbench',
-            name: 'Workbench',
+            name: '工作台',
             component: '/dashboard/workbench/index',
             meta: {
                 hideMenu: false,
@@ -38,103 +38,89 @@ const dashboardRoute = {
     ],
 };
 
-const backRoute = {
-    path: 'back',
-    name: 'PermissionBackDemo',
-    meta: {
-        title: 'routes.demo.permission.back',
-    },
-    children: [
+const backRoute =
+    [
         {
             path: 'page',
-            name: 'BackAuthPage',
-            component: '/demo/permission/back/index',
+            name: '页面权限',
+            component: '/permission/back/index',
             meta: {
                 title: 'routes.demo.permission.backPage',
             },
         },
         {
             path: 'btn',
-            name: 'BackAuthBtn',
-            component: '/demo/permission/back/Btn',
+            name: '按钮权限',
+            component: '/permission/back/Btn',
             meta: {
                 title: 'routes.demo.permission.backBtn',
             },
         },
-    ],
-};
+    ]
+
 
 const authRoute = {
     path: '/permission',
-    name: 'Permission',
+    name: '权限管理',
     component: 'LAYOUT',
     redirect: '/permission/front/page',
     meta: {
         icon: 'UserFilled',
         title: 'routes.demo.permission.permission',
     },
-    children: [backRoute],
+    children: [...backRoute],
 };
 
-const levelRoute = {
-    path: '/level',
-    name: 'Level',
+const componentRoute = {
+    path: '/basicComponents',
+    name: '基础组件',
     component: 'LAYOUT',
-    redirect: '/level/menu1/menu1-1',
+    redirect: '/basicComponents/formControls/formPage',
     meta: {
         icon: 'List',
-        title: 'routes.demo.level.level',
+        title: 'Custom Components',
     },
-
     children: [
         {
-            path: 'menu1',
-            name: 'Menu1Demo',
+            path: 'formControls',
+            name: '表单控件',
             meta: {
-                title: 'Menu1',
+                title: 'Form Controls',
             },
             children: [
                 {
-                    path: 'menu1-1',
-                    name: 'Menu11Demo',
+                    path: 'formPage',
+                    name: '表单页',
+                    component: '/basicComponents/formControls/formPage',
                     meta: {
-                        title: 'Menu1-1',
+                        title: 'Form Page',
                     },
-                    children: [
-                        {
-                            path: 'menu1-1-1',
-                            name: 'Menu111Demo',
-                            component: '/demo/level/Menu111',
-                            meta: {
-                                title: 'Menu111',
-                            },
-                        },
-                    ],
                 },
                 {
-                    path: 'menu1-2',
-                    name: 'Menu12Demo',
-                    component: '/demo/level/Menu12',
+                    path: 'tablePage',
+                    name: '表格页',
+                    component: '/basicComponents/formControls/tablePage',
                     meta: {
-                        title: 'Menu1-2',
+                        title: 'Table Page',
                     },
                 },
             ],
         },
         {
-            path: 'menu2',
-            name: 'Menu2Demo',
-            component: '/demo/level/Menu2',
+            path: 'queryTable',
+            name: '查询表格',
+            component: '/basicComponents/queryTable',
             meta: {
-                title: 'Menu2',
+                title: 'Query Table',
             },
         },
     ],
 };
 
+
 const sysRoute = {
     path: '/system',
-    name: 'System',
+    name: '系统管理',
     component: 'LAYOUT',
     redirect: '/system/account',
     meta: {
@@ -144,16 +130,16 @@ const sysRoute = {
     children: [
         {
             path: 'account',
-            name: 'AccountManagement',
+            name: '账号管理',
             meta: {
                 title: 'routes.demo.system.account',
                 ignoreKeepAlive: true,
             },
-            component: '/demo/system/account/index',
+            component: '/system/account/index',
         },
         {
             path: 'account_detail/:id',
-            name: 'AccountDetail',
+            name: '账号详情',
             meta: {
                 hideMenu: true,
                 title: 'routes.demo.system.account_detail',
@@ -161,67 +147,48 @@ const sysRoute = {
                 showMenu: false,
                 currentActiveMenu: '/system/account',
             },
-            component: '/demo/system/account/AccountDetail',
+            component: '/system/account/AccountDetail',
         },
         {
             path: 'role',
-            name: 'RoleManagement',
+            name: '角色管理',
             meta: {
                 title: 'routes.demo.system.role',
                 ignoreKeepAlive: true,
             },
-            component: '/demo/system/role/index',
+            component: '/system/role/index',
         },
 
         {
             path: 'menu',
-            name: 'MenuManagement',
+            name: '菜单管理',
             meta: {
                 title: 'routes.demo.system.menu',
                 ignoreKeepAlive: true,
             },
-            component: '/demo/system/menu/index',
+            component: '/system/menu/index',
         },
         {
             path: 'dept',
-            name: 'DeptManagement',
+            name: '部门管理',
             meta: {
                 title: 'routes.demo.system.dept',
                 ignoreKeepAlive: true,
             },
-            component: '/demo/system/dept/index',
+            component: '/system/dept/index',
         },
         {
             path: 'changePassword',
-            name: 'ChangePassword',
+            name: '修改密码',
             meta: {
                 title: 'routes.demo.system.password',
                 ignoreKeepAlive: true,
             },
-            component: '/demo/system/password/index',
+            component: '/system/password/index',
         },
     ],
 };
 
-const linkRoute = {
-    path: '/link',
-    name: 'Link',
-    component: 'LAYOUT',
-    meta: {
-        icon: 'Link',
-        title: 'routes.demo.iframe.frame',
-    },
-    children: [
-        {
-            path: 'doc',
-            name: 'Doc',
-            meta: {
-                title: 'routes.demo.iframe.doc',
-                frameSrc: 'https://doc.vvbin.cn/',
-            },
-        }
-    ],
-};
 
 export default [
     {
@@ -242,11 +209,11 @@ export default [
             switch (id) {
                 case '1':
                     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
-                    menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+                    menu = [dashboardRoute, componentRoute, sysRoute, authRoute];
                     break;
                 case '2':
                     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;
-                    menu = [dashboardRoute, authRoute, levelRoute, linkRoute];
+                    menu = [dashboardRoute, componentRoute, authRoute];
                     break;
                 default:
                     menu = [];
@@ -255,4 +222,5 @@ export default [
             return resultSuccess(menu);
         },
     },
+    //这个为什么报错
 ] as MockMethod[];
