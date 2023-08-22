@@ -33,14 +33,12 @@ function asyncImportRoute(routes: RouteItem[]) {
 //对components路径的转化
 function dynamicImport(dynamicViewsModules, component) {
     const keys = Object.keys(dynamicViewsModules);
-    //匹配路径
+    const normalizedComponent = component.replace(/(\.vue|\/index\.vue|\/index)$/, '');
     const matchKeys = keys.filter(key => {
-        const endFlag = component.endsWith('.vue')
-        const k = key.replace(/^(.*\/)?src\/views/, '')
-        const lastIndex = endFlag ? k.length : k.lastIndexOf('.');
-        return k.slice(0, lastIndex) === component
-    })
-    if (matchKeys.length == 1) {
-        return dynamicViewsModules[matchKeys[0]]
+        const normalizedKey = key.replace(/^(.*\/)?src\/views/, '').replace(/(\.vue|\/index\.vue)$/, '');
+        return normalizedKey === normalizedComponent;
+    });
+    if (matchKeys) {
+        return dynamicViewsModules[matchKeys[0]];
     }
 }

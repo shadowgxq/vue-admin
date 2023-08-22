@@ -43,7 +43,7 @@ const backRoute =
         {
             path: 'page',
             name: '页面权限',
-            component: '/permission/back/index',
+            component: '/permission/page/index',
             meta: {
                 title: 'routes.demo.permission.backPage',
             },
@@ -51,7 +51,7 @@ const backRoute =
         {
             path: 'btn',
             name: '按钮权限',
-            component: '/permission/back/Btn',
+            component: '/permission/btn/index',
             meta: {
                 title: 'routes.demo.permission.backBtn',
             },
