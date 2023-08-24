@@ -1,5 +1,5 @@
 <template>
-        <Table :columns="state.columns" :dataSource="state.dataSource"></Table>
+    <Table :columns="state.columns" :dataSource="state.dataSource"></Table>
 </template>
 
 <script setup lang="ts">
