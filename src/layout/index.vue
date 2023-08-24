@@ -23,6 +23,4 @@ import LayoutFooter from "./footer/index.vue";
   color: var(--el-text-color-primary);
   text-align: center;
 }
-
-
 </style>

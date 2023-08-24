@@ -17,6 +17,7 @@
     "less-loader": "^11.1.2",
     "mockjs": "^1.1.0",
     "pinia": "^2.1.4",
+    "unplugin-element-plus": "^0.8.0",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2"
   },

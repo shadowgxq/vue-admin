@@ -9,7 +9,7 @@ const dashboardRoute = {
     redirect: '/dashboard/analysis',
     meta: {
         title: 'routes.dashboard.dashboard',
-        hideChildrenInMenu: true,
+        hideChildrenInMenu: false,
         icon: 'HomeFilled',
     },
     children: [
@@ -19,7 +19,7 @@ const dashboardRoute = {
             component: '/dashboard/analysis/index',
             meta: {
                 hideMenu: false,
-                hideBreadcrumb: true,
+                hideBreadcrumb: false,
                 title: 'routes.dashboard.analysis',
                 currentActiveMenu: '/dashboard',
             },
@@ -30,7 +30,7 @@ const dashboardRoute = {
             component: '/dashboard/workbench/index',
             meta: {
                 hideMenu: false,
-                hideBreadcrumb: true,
+                hideBreadcrumb: false,
                 title: 'routes.dashboard.workbench',
                 currentActiveMenu: '/dashboard',
             },

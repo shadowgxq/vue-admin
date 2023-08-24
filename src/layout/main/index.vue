@@ -1,7 +1,9 @@
 <template>
     <Breadcrumb></Breadcrumb>
     <el-main class="main-layout">
-        <router-view></router-view>
+        <el-card>
+            <router-view></router-view>
+        </el-card>
     </el-main>
 </template>
 

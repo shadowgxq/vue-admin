@@ -11,8 +11,9 @@
 </template>
 <script setup lang="ts">
 import { useLayoutMenu } from './useLayoutMenu'
-import { reactive } from 'vue';
+import { reactive, onMounted } from 'vue';
 import MenuList from './MenuList.vue'
+import { router } from '@/router';
 const { menusRef } = useLayoutMenu()
 const state = reactive({
     activePath: "",
@@ -26,6 +27,10 @@ function handleMenuSelect(index) {
 function toggleCollapse() {
     state.isCollapse = !state.isCollapse
 }
+
+onMounted(() => {
+    state.activePath = router.currentRoute.value.path
+})
 </script>
 
 <style lang="less" scoped>
