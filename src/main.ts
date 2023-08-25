@@ -6,12 +6,13 @@ import '../mock/_index'
 import { setupStore } from './store'
 import { router } from '@/router/index'
 import { setupRouterGuard } from './router/guard'
-import { setupIcon } from './util/plugin'
+import { setupIcon, setupGlobal } from './util/plugin'
 
 const app = createApp(App)
 function initApp() {
     //elementUI icon
     setupIcon(app)
+    setupGlobal(app)
     //pinia
     setupStore(app)
     //init router

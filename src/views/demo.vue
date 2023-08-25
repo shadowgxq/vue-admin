@@ -1,6 +1,7 @@
 <template>
   <div>Demo</div>
   <div>{{ permissionStore.permCodeList }}</div>
+  <el-button>test</el-button>
   <button @click="handleChange">change</button>
 </template>
 <script setup lang="ts">

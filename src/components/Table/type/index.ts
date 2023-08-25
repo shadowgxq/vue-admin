@@ -1,1 +1,2 @@
-export * from './TableType'
+export * from './Table'
+export * from './core'

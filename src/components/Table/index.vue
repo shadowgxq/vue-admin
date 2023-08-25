@@ -1,24 +1,40 @@
 <template>
     <el-table v-bind="$attrs" :data="dataSource" style="width: 100%">
-        <template v-for="i in columns" :key="i.key || i.dataIndex">
-            <el-table-column :prop="i.dataIndex" :label="i.title" :width="i?.width">
-                
+        <template v-for="(i, index) in columns" :key="i.key || i.dataIndex">
+            <el-table-column :prop="i.dataIndex" :label="i.title" :width="i?.width"
+                v-bind="getFilterParams(i, CustomerColumnTypeList)">
+                <template #default="scope">
+                    <div v-if="i.customRender">
+                        <!-- 实现用render函数渲染内容 -->
+                        <VnodeComponent :vnodes="i.customRender(scope.row[i.dataIndex], scope, scope.$index)">
+                        </VnodeComponent>
+                    </div>
+                    <div v-else>
+                        {{ scope.row[i.dataIndex] }}
+                    </div>
+                </template>
             </el-table-column>
         </template>
     </el-table>
 </template>
 
 <script lang="ts" setup>
-import { TableProps } from "./type/TableType";
-import { computed } from 'vue'
+import { filterObjectProps } from "@/util";
+import { TableProps } from "./type/Table";
+import { computed, onMounted } from 'vue'
+import { CustomerColumnTypeList } from "./type";
+
+
+const props = defineProps<TableProps>();
+
+const getFilterParams = computed(() => (i, type) => {
+    let result = filterObjectProps(i, CustomerColumnTypeList)
+    return result
+})
+
 //prevent default inheritAttrs
 defineOptions({
     inheritAttrs: false
 })
-
-const props = defineProps<TableProps>();
-
-const getFilterAttrs = computed(() => () => {
-
-})
 </script>
+./type/Table
