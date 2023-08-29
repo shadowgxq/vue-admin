@@ -1,13 +1,12 @@
-import type { ElTable } from 'element-plus'
-import type { ElTableColumn } from 'element-plus'
+import type { TableProps as ELTableProps, TableColumnCtx } from 'element-plus'
 
 import { RendererElement, RendererNode, VNode } from 'vue';
 export type TableProps<T = unknown> = {
     columns: ColumnsType<T>;
     dataSource: T[];
-} & ELTableConfig
+} & ELTableConfig<T>
 
-export type ColumnType<RecordType> = CustomerColumnType<RecordType> & Omit<ElTableColumnConfig, keyof CustomerColumnType<RecordType>>
+export type ColumnType<RecordType> = CustomerColumnType<RecordType> & Omit<ElTableColumnConfig<T>, keyof CustomerColumnType<RecordType>>
 
 //add Customer type
 export type CustomerColumnType<RecordType> = {
@@ -27,8 +26,8 @@ export interface ColumnGroupType<RecordType> extends Omit<ColumnType<RecordType>
 export type ColumnsType<RecordType = unknown> = ColumnType<RecordType>[]
 
 //element-ui table config
-export type ELTableConfig = Omit<ElTable, 'data'>
-export type ElTableColumnConfig = ElTableColumn
+export type ELTableConfig<T> = Omit<ELTableProps<T>, 'data'>
+export type ElTableColumnConfig<T> = TableColumnCtx<T>
 
 //Customer config customer
 export type CustomerELTableConfig = {
