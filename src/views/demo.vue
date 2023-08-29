@@ -1,15 +1,15 @@
 <template>
-  <div>Demo</div>
-  <div>{{ permissionStore.permCodeList }}</div>
-  <el-button>test</el-button>
-  <button @click="handleChange">change</button>
+    <!-- {{ state.data }} -->
+    <ApiSelect v-model:value="state.data" :dictionaryFun="getAllRoleList" labelField="roleName" valueField="roleValue">
+    </ApiSelect>
 </template>
 <script setup lang="ts">
-import { Persistent } from "@/util/persistent";
-import { usePermissionStore } from "@/store/modules/permission";
-const permissionStore = usePermissionStore();
-function handleChange() {
-  permissionStore.setPermCodeList([100, 200, 300]);
-}
+import ApiSelect from '@/components/ApiSelect/index.vue'
+
+import { getAllRoleList } from '@/api/sys/selectList'
+import { reactive } from 'vue'
+const state = reactive({
+    data: "Eric"
+})
 </script>
 <style lang="less" scoped></style>
