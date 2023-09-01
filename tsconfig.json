@@ -10,8 +10,8 @@
     ],
     "skipLibCheck": true,
     /* set node that watch tpyeScript of element-plus */
-    // "moduleResolution": "node",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    // "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

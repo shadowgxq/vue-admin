@@ -5,12 +5,13 @@
                 v-bind="getFilterParams(i, CustomerColumnTypeList)">
                 <template #default="scope">
                     <div v-if="i.customRender">
-                        <!-- 实现用render函数渲染内容 -->
                         <VnodeComponent :vnodes="i.customRender(scope.row[i.dataIndex], scope, scope.$index)">
                         </VnodeComponent>
                     </div>
                     <div v-else>
-                        {{ scope.row[i.dataIndex] }}
+                        <slot :name="'table-' + i.dataIndex" :row="scope.row">
+                            {{ scope.row[i.dataIndex] }}
+                        </slot>
                     </div>
                 </template>
             </el-table-column>
@@ -27,6 +28,7 @@ import { CustomerColumnTypeList } from "./type";
 
 const props = defineProps<TableProps>();
 
+//Filter Customer props
 const getFilterParams = computed(() => (i, type) => {
     let result = filterObjectProps(i, CustomerColumnTypeList)
     return result

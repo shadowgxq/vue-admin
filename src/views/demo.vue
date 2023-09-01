@@ -9,7 +9,7 @@ import ApiSelect from '@/components/ApiSelect/index.vue'
 import { getAllRoleList } from '@/api/sys/selectList'
 import { reactive } from 'vue'
 const state = reactive({
-    data: "Eric"
+    data: ""
 })
 </script>
 <style lang="less" scoped></style>
