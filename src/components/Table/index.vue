@@ -1,42 +1,39 @@
 <template>
-    <el-table v-bind="$attrs" :data="dataSource" style="width: 100%">
+    <el-table ref="TableRef" v-bind="$attrs" :data="dataSource" style="width: 100%"
+        @selection-change="handleSelectionChange">
+        <el-table-column v-if="props.selection" type="selection" width="55" />
         <template v-for="(i, index) in columns" :key="i.key || i.dataIndex">
-            <el-table-column :prop="i.dataIndex" :label="i.title" :width="i?.width"
-                v-bind="getFilterParams(i, CustomerColumnTypeList)">
-                <template #default="scope">
-                    <div v-if="i.customRender">
-                        <VnodeComponent :vnodes="i.customRender(scope.row[i.dataIndex], scope, scope.$index)">
-                        </VnodeComponent>
-                    </div>
-                    <div v-else>
-                        <slot :name="'table-' + i.dataIndex" :row="scope.row">
-                            {{ scope.row[i.dataIndex] }}
-                        </slot>
-                    </div>
+            <TableColumn :column="i">
+                <!--resolve cross-component slots-->
+                <template v-for="(index, name) in $slots" v-slot:[name]="data">
+                    <slot :name="name" v-bind="(data as any)"></slot>
                 </template>
-            </el-table-column>
+            </TableColumn>
         </template>
     </el-table>
 </template>
 
 <script lang="ts" setup>
-import { filterObjectProps } from "@/util";
+import { ref } from 'vue'
 import { TableProps } from "./type/Table";
-import { computed, onMounted } from 'vue'
-import { CustomerColumnTypeList } from "./type";
-
+import TableColumn from "./TableColumn.vue";
 
 const props = defineProps<TableProps>();
 
-//Filter Customer props
-const getFilterParams = computed(() => (i, type) => {
-    let result = filterObjectProps(i, CustomerColumnTypeList)
-    return result
-})
+const emits = defineEmits(["selection-change"]);
+
+const TableRef = ref<any>(null)
+
+function handleSelectionChange(e: any) {
+    emits('selection-change', e)
+}
 
 //prevent default inheritAttrs
 defineOptions({
     inheritAttrs: false
 })
+
+defineExpose({
+    TableRef
+})
 </script>
-./type/Table

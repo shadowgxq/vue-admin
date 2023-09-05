@@ -4,6 +4,7 @@ import { RendererElement, RendererNode, VNode } from 'vue';
 export type TableProps<T = unknown> = {
     columns: ColumnsType<T>;
     dataSource: T[];
+    selection?: boolean
 }
 //table props 
 export type TableConfig<T = unknown> = {
