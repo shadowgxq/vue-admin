@@ -12,3 +12,15 @@ export function filterObjectProps<T extends object, K extends keyof T>(
     }, {} as FilteredObject<T, K>);
     return filtered;
 }
+
+export function getValueByArrayKeys(obj, keys) {
+    let result = obj;
+    for (const key of keys) {
+        if (result && result.hasOwnProperty(key)) {
+            result = result[key];
+        } else {
+            return undefined; // 如果属性不存在，返回 undefined 或者可以根据需求返回其他默认值
+        }
+    }
+    return result;
+}

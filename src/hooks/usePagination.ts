@@ -1,10 +1,11 @@
+import { getValueByArrayKeys } from '@/util';
 import axios, { CancelTokenSource } from 'axios';
 import { ref, reactive } from 'vue';
 
 const CancelToken = axios.CancelToken;
 let currentRequest: CancelTokenSource | null = null;
 
-export const usePagination = (apiFunc, params) => {
+export const usePagination = (apiFunc, params, filter: string[] = ["data"]) => {
     const listData = reactive({
         list: [],
         loading: false,
@@ -27,10 +28,12 @@ export const usePagination = (apiFunc, params) => {
         try {
             currentRequest = CancelToken.source();
             let res = await apiFunc(currentParams, currentRequest.token);
+            let result = getValueByArrayKeys(res, filter)
+            pagination.total = getValueByArrayKeys(res, filter.slice(0, -1).concat("total"));
             currentRequest = null;
-            listData.list = listData.list.concat(res.data);
+            listData.list = listData.list.concat(result);
             pagination.page += 1;
-            if (res.data.length < pagination.pageSize) {
+            if (result.length < pagination.pageSize) {
                 listData.finished = true;
             }
             listData.loading = false;
