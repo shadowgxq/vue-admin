@@ -28,8 +28,8 @@
 <script setup lang="ts">
 import { filterObjectProps } from '@/util';
 import { computed } from 'vue';
-import { CustomerColumnTypeList } from './type';
-import { ColumnType } from "./type/Table";
+import { CustomerColumnTypeList } from './types';
+import { ColumnType } from "./types/Table";
 
 type Tcolumn<T = unknown> = {
     column: ColumnType<T>

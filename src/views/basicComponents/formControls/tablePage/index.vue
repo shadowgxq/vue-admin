@@ -89,4 +89,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped></style>@/components/Table/types

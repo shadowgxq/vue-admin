@@ -15,7 +15,6 @@ export function resultPageSuccess<T = any>(
     { message = 'ok' } = {},
 ) {
     const pageData = pagination(page, pageSize, list);
-
     return {
         ...resultSuccess({
             items: pageData,

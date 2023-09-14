@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { TableProps } from "./type/Table";
+import { TableProps } from "./types/Table";
 import TableColumn from "./TableColumn.vue";
 
 const props = defineProps<TableProps>();

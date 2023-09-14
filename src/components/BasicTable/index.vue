@@ -1,6 +1,4 @@
 <template>
-    <!--search框-->
-
     <!--table-->
     <Table :columns="state.columns" :dataSource="listData.list" :selection="true">
     </Table>
@@ -10,12 +8,13 @@
             :total="pagination.total" @current-change="handlePaginationChange" />
     </div>
     <!--新增弹窗-->
-
+    
     <!--编辑弹窗-->
 </template>
 
 <script setup lang="ts">
 import Table from '@/components/Table/index.vue'
+import Form from '@/components/Form/index.vue'
 import { ColumnType } from '@/components/Table/type';
 import { ElButton } from 'element-plus';
 import { reactive, h, onMounted } from 'vue'
@@ -24,7 +23,7 @@ import { getTableList } from '@/api/demo/table';
 // getTableList({ page: 1, pageSize: 10 }).then(res => {
 //         console.log(res)
 //     })
-const { pagination, onLoadMore, listData, reset } = usePagination(getTableList, {}, ['result', 'items'])
+const { pagination, onLoadMore, listData, onPagination } = usePagination(getTableList, {}, ['result', 'items'])
 const state = reactive<any>({
     columns: [
         {
@@ -42,19 +41,16 @@ const state = reactive<any>({
             dataIndex: 'address',
             key: 'address',
         }
-    ],
-    pagination: {
-        current: 1,
-        pageSize: 10,
-        total: 100
-    }
+    ]
 })
 
 function handlePaginationChange(value) {
-    console.log(value)
+    pagination.page = value
+    onPagination()
 }
+
 onMounted(() => {
-    onLoadMore()
+    onPagination()
 })
 
 </script>
