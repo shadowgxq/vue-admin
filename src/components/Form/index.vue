@@ -10,16 +10,26 @@
                 </el-col>
             </template>
         </el-row>
+        <el-form-item>
+            <slot name="form-submit">
+                <el-button type="primary" @click="submitForm(ruleFormRef)">Create</el-button>
+            </slot>
+            <slot name="form-cabcek">
+                <el-button>Cancel</el-button>
+
+            </slot>
+        </el-form-item>
     </el-form>
 </template>
   
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watchEffect } from 'vue'
+import { nextTick, onMounted, reactive, ref, watchEffect } from 'vue'
 import { FormProps } from './types/Form'
-
+import type { FormInstance } from 'element-plus'
 const porps = withDefaults(defineProps<FormProps>(), {})
 
-const ruleFormRef = ref<any>()
+const ruleFormRef = ref<FormInstance>()
+
 const state = reactive<any>({
     formData: {},
     rules: {}
@@ -52,8 +62,23 @@ function genreateRules() {
 //reset and init form data by prop FormSchema
 function resetForm() {
     state.formData = generateFormData()
+    // invoke entery page to validate form
+    nextTick(() => {
+        ruleFormRef.value?.clearValidate()
+    })
 }
 
+const submitForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.validate((valid) => {
+        if (valid) {
+            console.log('submit!')
+        } else {
+            console.log('error submit!')
+            return false
+        }
+    })
+}
 
 onMounted(() => {
     resetForm()
