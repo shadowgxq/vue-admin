@@ -1,11 +1,16 @@
 <template>
     <el-form ref="ruleFormRef" :rules="state.rules" :model="state.formData" label-width="60px" class="demo-ruleForm"
-        status-icon>
+        status-icon :validate-on-rule-change="false">
         <el-row>
             <template v-for="i in FormSchema">
                 <el-col :span="12">
                     <el-form-item :label="i.label + ':'" :prop="i.prop">
-                        <el-input v-model="state.formData[i.prop]" />
+                        <slot :name="'form-' + i.prop" :row="i">
+                            <!--have not component default render input-->
+                            <el-input v-if="!i.component" v-model="state.formData[i.prop]" />
+                            <VnodeFormComponent v-else :vnodes="convertFormVnodes(i)"></VnodeFormComponent>
+                        </slot>
+
                     </el-form-item>
                 </el-col>
             </template>
@@ -15,8 +20,7 @@
                 <el-button type="primary" @click="submitForm(ruleFormRef)">Create</el-button>
             </slot>
             <slot name="form-cabcek">
-                <el-button>Cancel</el-button>
-
+                <el-button @click="handleCancel">Cancel</el-button>
             </slot>
         </el-form-item>
     </el-form>
@@ -24,9 +28,11 @@
   
 <script lang="ts" setup>
 import { nextTick, onMounted, reactive, ref, watchEffect } from 'vue'
-import { FormProps } from './types/Form'
+import { FormProps, FormSchemaType } from './types/Form'
 import type { FormInstance } from 'element-plus'
 const porps = withDefaults(defineProps<FormProps>(), {})
+
+const emits = defineEmits(["handle-submit", "handle-cancel"]);
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -34,6 +40,15 @@ const state = reactive<any>({
     formData: {},
     rules: {}
 })
+
+function convertFormVnodes(formItem: FormSchemaType) {
+    return {
+        components: formItem.component,
+        props: {
+            ...formItem.componentProps,
+        }
+    }
+}
 
 function generateFormData() {
     let result = {}
@@ -62,17 +77,17 @@ function genreateRules() {
 //reset and init form data by prop FormSchema
 function resetForm() {
     state.formData = generateFormData()
-    // invoke entery page to validate form
-    nextTick(() => {
-        ruleFormRef.value?.clearValidate()
-    })
+}
+
+function handleCancel() {
+    emits('handle-cancel')
 }
 
 const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate((valid) => {
         if (valid) {
-            console.log('submit!')
+            emits("handle-submit")
         } else {
             console.log('error submit!')
             return false

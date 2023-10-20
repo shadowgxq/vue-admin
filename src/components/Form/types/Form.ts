@@ -7,11 +7,11 @@ export type FormProps = {
 export type FormSchemaType = {
     prop: string
     label: string
-    component?: ComponentType
-    componentProps?: any
     required?: boolean
     rules?: FormItemRule[];
     colSpan?: number
+    component?: ComponentType
+    componentProps?: any
 }
 
 export type ComponentType =

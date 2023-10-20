@@ -1,5 +1,5 @@
 import { h, defineComponent, ref, onMounted, isVNode } from 'vue'
-
+import { getComponentByType } from './map'
 export default defineComponent({
     props: ["vnodes"],
     setup(props, ctx) {
@@ -11,7 +11,10 @@ export default defineComponent({
             } else if (typeof vnodes == 'string') {
                 return h('div', { innerHTML: vnodes })
             } else if (typeof vnodes == 'object') {
-                return h(vnodes.components, { ...vnodes.props })
+                let components = getComponentByType(vnodes.components)
+                return h(components, {
+                    ...vnodes.props
+                })
             }
         }
         return () => {

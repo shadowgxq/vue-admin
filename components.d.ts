@@ -9,7 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ApiSelect: typeof import('./src/components/ApiSelect/index.vue')['default']
+    ApiSelect: typeof import('./src/components/FormTools/ApiSelect/index.vue')['default']
     BasicTable: typeof import('./src/components/BasicTable/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBadge: typeof import('element-plus/es')['ElBadge']
@@ -50,6 +50,7 @@ declare module '@vue/runtime-core' {
     Form: typeof import('./src/components/Form/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('./src/components/FormTools/Select/index.vue')['default']
     Table: typeof import('./src/components/Table/index.vue')['default']
     TableColumn: typeof import('./src/components/Table/TableColumn.vue')['default']
     TableContext: typeof import('./src/components/Table/TableContext.vue')['default']

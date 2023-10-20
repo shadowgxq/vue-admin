@@ -1,17 +1,11 @@
 <template>
-    <Table :columns="state.columns" :dataSource="state.dataSource" :selection="true" :span-method="arraySpanMethod">
-        <template #table-column-date="scope">
-            <div>{{ scope.row.date }}</div>
-        </template>
-        <template #table-header-date>
-            <div>test</div>
-        </template>
+    <Table :columns="state.columns" :dataSource="state.dataSource" :selection="true">
     </Table>
 </template>
 
 <script setup lang="ts">
 import Table from '@/components/Table/index.vue'
-import { ColumnType } from '@/components/Table/type';
+import { ColumnType } from '@/components/Table/types';
 import { ElButton } from 'element-plus';
 import { reactive, h, onMounted } from 'vue'
 
@@ -48,6 +42,14 @@ const state = reactive<{ dataSource: Array<any>, columns: ColumnType[] }>({
             title: '日期',
             dataIndex: 'date',
             key: 'date',
+            customRender() {
+                return {
+                    components: ElButton,
+                    props: {
+                        type: "primary", innerHTML: "hello"
+                    }
+                }
+            }
         },
         {
             title: '姓名',

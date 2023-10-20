@@ -6,5 +6,6 @@
 .copyright {
   background-color: @--shaodw-grey-color;
   text-align: center;
+  padding-bottom: 20px;
 }
 </style>

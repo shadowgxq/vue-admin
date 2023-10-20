@@ -23,7 +23,7 @@ export type CustomerColumnType<T> = {
     children?: ColumnType<T>
     customRender?: (text?: string, scope?: unknown, index?: number) => VNode<RendererNode, RendererElement, {
         [key: string]: any;
-    }>;
+    }> | Object;
 }
 
 export type CustomerColumnTypeGroup<T> = {

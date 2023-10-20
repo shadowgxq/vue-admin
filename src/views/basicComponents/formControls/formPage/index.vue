@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Select v-model="state.selectValue" :options="state.FormSchema[2].componentProps.options"></Select>
         <Form :FormSchema="state.FormSchema"></Form>
     </div>
 </template>
@@ -8,8 +9,9 @@
 import Form from '@/components/Form/index.vue'
 import { FormSchemaType } from '@/components/Form/types/Form';
 import { reactive } from 'vue';
-
+import Select from '@/components/FormTools/Select/index.vue'
 const state = reactive<{ FormSchema: FormSchemaType[] }>({
+    selectValue: "",
     FormSchema: [
         {
             prop: "name",
@@ -37,6 +39,19 @@ const state = reactive<{ FormSchema: FormSchemaType[] }>({
         {
             prop: "size",
             label: "尺寸",
+            component: "Select",
+            componentProps: {
+                options: [
+                    {
+                        label: "名称",
+                        value: "name"
+                    },
+                    {
+                        label: "年龄",
+                        value: "age"
+                    }
+                ]
+            }
         },
     ]
 })

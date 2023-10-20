@@ -1,5 +1,5 @@
 export type SelectPropsType = {
-    value: unknown
+    selectedValue: unknown
     placeholder?: string
     dictionaryFun?: () => roleListItemMoudle
     resultField?: string
@@ -7,7 +7,3 @@ export type SelectPropsType = {
     valueField?: string
 }
 
-export type SelectStateType<T> = {
-    selectedValue: string | number
-    options: Array<T>
-}
