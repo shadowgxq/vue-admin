@@ -1,7 +1,11 @@
 <template>
+    <div style="margin-bottom: 20px;">
+        {{ state.selectValue }}
+        <Select v-model="state.selectValue" :options="state.formSchema[2].componentProps.options"></Select>
+    </div>
     <div>
-        <Select v-model="state.selectValue" :options="state.FormSchema[2].componentProps.options"></Select>
-        <Form :FormSchema="state.FormSchema"></Form>
+        <Form :formSchema="state.formSchema">
+        </Form>
     </div>
 </template>
 
@@ -10,16 +14,20 @@ import Form from '@/components/Form/index.vue'
 import { FormSchemaType } from '@/components/Form/types/Form';
 import { reactive } from 'vue';
 import Select from '@/components/FormTools/Select/index.vue'
-const state = reactive<{ FormSchema: FormSchemaType[] }>({
-    selectValue: "",
-    FormSchema: [
+const state = reactive<{
+    formSchema: FormSchemaType[],
+    selectValue: String
+}>({
+    selectValue: "age",
+    formSchema: [
         {
             prop: "name",
             label: "姓名",
+            colSpan: 12,
             rules: [
                 { required: true, message: '请输入姓名', trigger: 'blur' },
                 { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
-            ]
+            ],
         },
         {
             prop: "age",
@@ -55,6 +63,7 @@ const state = reactive<{ FormSchema: FormSchemaType[] }>({
         },
     ]
 })
+
 </script>
 
 <style lang="less" scoped></style>

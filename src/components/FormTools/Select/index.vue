@@ -1,32 +1,32 @@
 <template>
-    <el-select ref="selectRef" clearable v-model="porps.selectedValue" @change="handleChange"
-        :placeholder="porps.placeholder" :disabled="disabled">
-        <el-option v-for="option in porps.options" :key="option['value']" :label="option['label']"
+    <el-select ref="selectRef" clearable :modelValue="props.modelValue" @change="handleChange"
+        :placeholder="props.placeholder" :disabled="disabled">
+        <el-option v-for="option in props.options" :key="option['value']" :label="option['label']"
             :value="option['value']" />
     </el-select>
 </template>
 
 <script setup lang="ts">
+import type { ref } from 'vue'
 export type TypeSelectProps = {
     disabled?: boolean
-    selectedValue: string | number
+    modelValue?: any
     placeholder?: string
     options: Array<{
         label: string
-        value: unknown
+        value: any
     }>
 }
-const porps = withDefaults(defineProps<TypeSelectProps>(), {
+const props = withDefaults(defineProps<TypeSelectProps>(), {
     disabled: false,
     placeholder: "请选择",
-    selectedValue: ""
+    modelValue: ""
 })
 
-const emits = defineEmits(["update:selectedValue"])
+const emits = defineEmits(["update:modelValue"])
 
 function handleChange(val: unknown) {
-    console.log(val)
-    emits('update:selectedValue', val)
+    emits('update:modelValue', val)
 }
 
 </script>

@@ -12,32 +12,6 @@ import { reactive, h, onMounted } from 'vue'
 const state = reactive<{ dataSource: Array<any>, columns: ColumnType[] }>({
     dataSource: [],
     columns: [
-        // {
-        //     title: '姓名',
-        //     children: [
-        //         {
-        //             title: '日期',
-        //             dataIndex: 'date',
-        //             key: 'date',
-        //             customRender() {
-        //                 return {
-        //                     components: ElButton,
-        //                     props: {
-        //                         type: "primary", innerHTML: "hello"
-        //                     }
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             title: '地址',
-        //             dataIndex: 'address',
-        //             key: 'address',
-        //             customRender() {
-        //                 return h(ElButton, { type: "primary", innerHTML: "hello" })
-        //             }
-        //         }
-        //     ]
-        // },
         {
             title: '日期',
             dataIndex: 'date',
@@ -54,7 +28,10 @@ const state = reactive<{ dataSource: Array<any>, columns: ColumnType[] }>({
         {
             title: '姓名',
             dataIndex: 'name',
-            key: 'name'
+            key: 'name',
+            customRender() {
+                return h('div', "test")
+            }
         },
         {
             title: '地址',
@@ -91,4 +68,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="less" scoped></style>@/components/Table/types
+<style lang="less" scoped></style>

@@ -2,25 +2,25 @@
     <el-form ref="ruleFormRef" :rules="state.rules" :model="state.formData" label-width="60px" class="demo-ruleForm"
         status-icon :validate-on-rule-change="false">
         <el-row>
-            <template v-for="i in FormSchema">
-                <el-col :span="12">
+            <template v-for="i in formSchema">
+                <el-col :span="i.colSpan || state.defaultColSpan">
                     <el-form-item :label="i.label + ':'" :prop="i.prop">
                         <slot :name="'form-' + i.prop" :row="i">
                             <!--have not component default render input-->
                             <el-input v-if="!i.component" v-model="state.formData[i.prop]" />
                             <VnodeFormComponent v-else :vnodes="convertFormVnodes(i)"></VnodeFormComponent>
                         </slot>
-
                     </el-form-item>
                 </el-col>
             </template>
         </el-row>
+        <!--action bar-->
         <el-form-item>
             <slot name="form-submit">
-                <el-button type="primary" @click="submitForm(ruleFormRef)">Create</el-button>
+                <el-button type="primary" @click="submitForm(ruleFormRef)">提交</el-button>
             </slot>
-            <slot name="form-cabcek">
-                <el-button @click="handleCancel">Cancel</el-button>
+            <slot name="form-cancel">
+                <el-button @click="handleCancel">取消</el-button>
             </slot>
         </el-form-item>
     </el-form>
@@ -38,9 +38,10 @@ const ruleFormRef = ref<FormInstance>()
 
 const state = reactive<any>({
     formData: {},
-    rules: {}
+    rules: {},
+    defaultColSpan: 12
 })
-
+//根据 component 组装数据
 function convertFormVnodes(formItem: FormSchemaType) {
     return {
         components: formItem.component,
@@ -52,7 +53,7 @@ function convertFormVnodes(formItem: FormSchemaType) {
 
 function generateFormData() {
     let result = {}
-    porps.FormSchema.forEach((i) => {
+    porps.formSchema.forEach((i) => {
         result[i.prop] = ''
     })
     return result
@@ -60,7 +61,7 @@ function generateFormData() {
 
 function genreateRules() {
     let rules = {}
-    porps.FormSchema.forEach((i) => {
+    porps.formSchema.forEach((i) => {
         if (i.required) {
             rules[i.prop] = [
                 { required: true, message: '请输入' + i.label, trigger: 'blur' }
