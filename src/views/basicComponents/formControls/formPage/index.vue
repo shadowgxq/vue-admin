@@ -1,10 +1,6 @@
 <template>
-    <div style="margin-bottom: 20px;">
-        {{ state.selectValue }}
-        <Select v-model="state.selectValue" :options="state.formSchema[2].componentProps.options"></Select>
-    </div>
     <div>
-        <Form :formSchema="state.formSchema">
+        <Form :formData="formData" :formSchema="state.formSchema">
         </Form>
     </div>
 </template>
@@ -12,11 +8,19 @@
 <script setup lang="ts">
 import Form from '@/components/Form/index.vue'
 import { FormSchemaType } from '@/components/Form/types/Form';
-import { reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import Select from '@/components/FormTools/Select/index.vue'
+
+const formData = ref<{}>({
+    name: "shadow",
+    age: "",
+    size: "age",
+})
+
 const state = reactive<{
     formSchema: FormSchemaType[],
-    selectValue: String
+    selectValue: String,
+    formData?: any
 }>({
     selectValue: "age",
     formSchema: [
@@ -26,7 +30,7 @@ const state = reactive<{
             colSpan: 12,
             rules: [
                 { required: true, message: '请输入姓名', trigger: 'blur' },
-                { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+                { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
             ],
         },
         {
@@ -35,7 +39,7 @@ const state = reactive<{
             rules: [
                 {
                     validator: (rule: any, value: any, callback: any) => {
-                        if (value === '') {
+                        if (value == '') {
                             callback(new Error('Please input the password again'))
                         } else {
                             callback()
@@ -62,6 +66,19 @@ const state = reactive<{
             }
         },
     ]
+})
+
+//generate empty obj
+function generateFormData() {
+    let result = {}
+    state.formSchema.forEach((i) => {
+        result[i.prop] = ''
+    })
+    return result
+}
+
+onMounted(() => {
+    // formData.value = generateFormData()
 })
 
 </script>

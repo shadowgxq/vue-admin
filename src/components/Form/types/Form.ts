@@ -1,7 +1,8 @@
 import type { FormItemRule } from 'element-plus'
 
 export type FormProps = {
-    formSchema: FormSchemaType[]
+    formSchema: FormSchemaType[],
+    formData: any
 }
 
 export type FormSchemaType = {

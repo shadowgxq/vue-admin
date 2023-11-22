@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="ruleFormRef" :rules="state.rules" :model="state.formData" label-width="60px" class="demo-ruleForm"
+    <el-form ref="ruleFormRef" :rules="state.rules" :model="props.formData" label-width="60px" class="demo-ruleForm"
         status-icon :validate-on-rule-change="false">
         <el-row>
             <template v-for="i in formSchema">
@@ -7,7 +7,7 @@
                     <el-form-item :label="i.label + ':'" :prop="i.prop">
                         <slot :name="'form-' + i.prop" :row="i">
                             <!--have not component default render input-->
-                            <el-input v-if="!i.component" v-model="state.formData[i.prop]" />
+                            <el-input v-if="!i.component" v-model="props.formData[i.prop]" />
                             <VnodeFormComponent v-else :vnodes="convertFormVnodes(i)"></VnodeFormComponent>
                         </slot>
                     </el-form-item>
@@ -30,38 +30,36 @@
 import { nextTick, onMounted, reactive, ref, watchEffect } from 'vue'
 import { FormProps, FormSchemaType } from './types/Form'
 import type { FormInstance } from 'element-plus'
-const porps = withDefaults(defineProps<FormProps>(), {})
+const props = withDefaults(defineProps<FormProps>(), {})
 
 const emits = defineEmits(["handle-submit", "handle-cancel"]);
 
 const ruleFormRef = ref<FormInstance>()
 
-const state = reactive<any>({
-    formData: {},
+const state = reactive<{ rules: object, defaultColSpan: number }>({
     rules: {},
     defaultColSpan: 12
 })
-//根据 component 组装数据
+
+//根据component 组装h函数
 function convertFormVnodes(formItem: FormSchemaType) {
+    //获取value
+    let prop = formItem.prop
     return {
         components: formItem.component,
         props: {
             ...formItem.componentProps,
-        }
+            modelValue: props.formData[prop],
+            'onUpdate:modelValue': (val) => {
+                props.formData[prop] = val;
+            },
+        },
     }
-}
-
-function generateFormData() {
-    let result = {}
-    porps.formSchema.forEach((i) => {
-        result[i.prop] = ''
-    })
-    return result
 }
 
 function genreateRules() {
     let rules = {}
-    porps.formSchema.forEach((i) => {
+    props.formSchema.forEach((i) => {
         if (i.required) {
             rules[i.prop] = [
                 { required: true, message: '请输入' + i.label, trigger: 'blur' }
@@ -74,10 +72,6 @@ function genreateRules() {
         }
     })
     state.rules = rules
-}
-//reset and init form data by prop FormSchema
-function resetForm() {
-    state.formData = generateFormData()
 }
 
 function handleCancel() {
@@ -97,7 +91,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
 }
 
 onMounted(() => {
-    resetForm()
     genreateRules()
 })
 

@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import type { ref } from 'vue'
 export type TypeSelectProps = {
     disabled?: boolean
     modelValue?: any

@@ -29,6 +29,7 @@ const prop = withDefaults(defineProps<Tprop>(), {
     display: flex;
     padding: 12px;
     .noticeItem-avatar {
+      flex-shrink: 0;
       box-sizing: border-box;
       margin: 0 15px 0 0;
       padding: 0;
