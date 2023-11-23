@@ -1,4 +1,6 @@
 <template>
+    <!--搜索条件-->
+
     <!--table-->
     <Table :columns="state.columns" :dataSource="listData.list" :selection="true">
     </Table>
@@ -15,7 +17,6 @@
 <script setup lang="ts">
 import Table from '@/components/Table/index.vue'
 import Form from '@/components/Form/index.vue'
-import { ColumnType } from '@/components/Table/type';
 import { ElButton } from 'element-plus';
 import { reactive, h, onMounted } from 'vue'
 import { usePagination } from '@/hooks/usePagination'

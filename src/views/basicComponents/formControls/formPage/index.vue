@@ -1,28 +1,26 @@
 <template>
     <div>
-        <Form :formData="formData" :formSchema="state.formSchema">
+        <Form :formData="formData" :formSchema="state.formSchema" label-width="60px" @handle-submit="handleSubmit"
+            @handle-cancel="handleCancel">
         </Form>
     </div>
 </template>
 
 <script setup lang="ts">
+import { getAllRoleList } from '@/api/sys/selectList';
 import Form from '@/components/Form/index.vue'
 import { FormSchemaType } from '@/components/Form/types/Form';
 import { onMounted, reactive, ref } from 'vue';
-import Select from '@/components/FormTools/Select/index.vue'
 
 const formData = ref<{}>({
     name: "shadow",
     age: "",
-    size: "age",
+    size: "age"
 })
 
 const state = reactive<{
-    formSchema: FormSchemaType[],
-    selectValue: String,
-    formData?: any
+    formSchema: FormSchemaType[]
 }>({
-    selectValue: "age",
     formSchema: [
         {
             prop: "name",
@@ -65,16 +63,34 @@ const state = reactive<{
                 ]
             }
         },
+        {
+            prop: "role",
+            label: "角色",
+            component: "ApiSelect",
+            componentProps: {
+                dictionaryFun: getAllRoleList,
+                labelField: "roleName",
+                valueField: "roleValue"
+            }
+        }
     ]
 })
 
-//generate empty obj
+//generate empty obj (reset obj)
 function generateFormData() {
     let result = {}
     state.formSchema.forEach((i) => {
         result[i.prop] = ''
     })
     return result
+}
+
+function handleSubmit() {
+    console.log(formData.value)
+}
+
+function handleCancel() {
+    formData.value = generateFormData()
 }
 
 onMounted(() => {

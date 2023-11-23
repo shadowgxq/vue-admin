@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="props.selectedValue" @change="handleChange" :placeholder="placeholder" clearable>
+    <el-select :modelValue="props.modelValue" @change="handleChange" :placeholder="placeholder" clearable>
         <el-option v-for="option in state.options" :key="option[valueField]" :label="option[labelField]"
             :value="option[valueField]" />
     </el-select>
@@ -14,9 +14,10 @@ const props = withDefaults(defineProps<SelectPropsType>(), {
     resultField: "",
     labelField: "label",
     valueField: "value",
+    modelValue: ""
 })
 
-const myEmit = defineEmits(['update:selectedValue'])
+const myEmit = defineEmits(['update:modelValue'])
 
 const state = reactive<any>({
     options: []
@@ -24,15 +25,15 @@ const state = reactive<any>({
 
 async function loadDataList() {
     if (typeof props.dictionaryFun == 'function') {
-        let _API = props.dictionaryFun
+        let _API = props.dictionaryFun as any
         let result = await _API()
         state.options = props.resultField == "" ? result.result : result.result[props.resultField]
     }
 }
 
 function handleChange(value: string | number) {
-    state.selectedValue = value
-    myEmit('update:selectedValue', value)
+    state.modelValue = value
+    myEmit('update:modelValue', value)
 }
 
 onMounted(() => {

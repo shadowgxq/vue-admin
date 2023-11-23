@@ -1,6 +1,6 @@
 <template>
     {{ state.data }}
-    <ApiSelect v-model:selectedValue="state.data" :dictionaryFun="getAllRoleList" labelField="roleName" valueField="roleValue">
+    <ApiSelect v-model="state.data" :dictionaryFun="getAllRoleList" labelField="roleName" valueField="roleValue">
     </ApiSelect>
     <Select v-model:selectedValue="state.data" :options="state.options"></Select>
 </template>

@@ -7,15 +7,8 @@
 </template>
 
 <script setup lang="ts">
-export type TypeSelectProps = {
-    disabled?: boolean
-    modelValue?: any
-    placeholder?: string
-    options: Array<{
-        label: string
-        value: any
-    }>
-}
+import { TypeSelectProps } from './index'
+
 const props = withDefaults(defineProps<TypeSelectProps>(), {
     disabled: false,
     placeholder: "请选择",
