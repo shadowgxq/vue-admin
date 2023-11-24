@@ -5,7 +5,7 @@ import { ref, reactive } from 'vue';
 const CancelToken = axios.CancelToken;
 let currentRequest: CancelTokenSource | null = null;
 
-export const usePagination = (apiFunc, params, filter: string[] = ["data"]) => {
+export const usePagination = (apiFunc, filter: string[] = ["data"]) => {
     const listData = reactive({
         list: [],
         loading: false,
@@ -17,7 +17,7 @@ export const usePagination = (apiFunc, params, filter: string[] = ["data"]) => {
         total: 0,
     })
     //下拉加载时候用
-    const onLoadMore = async () => {
+    const onLoadMore = async (params?: Object) => {
         if (listData.finished) {
             return;
         }
@@ -45,7 +45,7 @@ export const usePagination = (apiFunc, params, filter: string[] = ["data"]) => {
         }
     };
     //分页时候用
-    const onPagination = async () => {
+    const onPagination = async (params?: Object) => {
         if (currentRequest) {
             currentRequest.cancel();
         }

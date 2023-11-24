@@ -3,6 +3,7 @@
         @selection-change="handleSelectionChange">
         <el-table-column v-if="props.selection" type="selection" width="55" />
         <template v-for="(i, index) in columns" :key="i.key || i.dataIndex">
+            <!--Handling Recursion Stripping Components-->
             <TableColumn :column="i">
                 <!--resolve cross-component slots-->
                 <template v-for="(index, name) in $slots" v-slot:[name]="data">
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref , useSlots} from 'vue'
 import { TableProps } from "./types/Table";
 import TableColumn from "./TableColumn.vue";
 

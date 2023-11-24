@@ -1,9 +1,13 @@
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import { FormSchemaType } from './types/Form'
 export const useForm = (props) => {
     const state = reactive<{ rules: object, defaultColSpan: number }>({
         rules: {},
         defaultColSpan: 12
+    })
+
+    const getAutoPlaceholder = computed(() => (str) => {
+        return '请输入' + str
     })
 
     //自动生成rules
@@ -39,7 +43,21 @@ export const useForm = (props) => {
             },
         }
     }
-    
+
+    //重置表单数据
+    function handleRestFormData(formSchema) {
+        return generateFormData(formSchema)
+    }
+
+    //generate empty obj (reset obj)
+    function generateFormData(formSchema = props.formSchema) {
+        let result = {}
+        formSchema.forEach((i) => {
+            result[i.prop] = ''
+        })
+        return result
+    }
+
     onMounted(() => {
         genreateRules()
     })
@@ -47,6 +65,8 @@ export const useForm = (props) => {
     return {
         state,
         convertFormVnodes,
-        genreateRules
+        genreateRules,
+        getAutoPlaceholder,
+        handleRestFormData
     }
 }

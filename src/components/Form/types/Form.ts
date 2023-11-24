@@ -2,7 +2,12 @@ import type { FormItemRule } from 'element-plus'
 
 export type FormProps = {
     formSchema: FormSchemaType[],
-    formData: any
+    formData: any,
+    submitText?: string,
+    cannelText?: string,
+    showController?: boolean
+    //custom slot prefix
+    prefix?: string
 }
 
 export type FormSchemaType<T = any> = {
@@ -13,7 +18,8 @@ export type FormSchemaType<T = any> = {
     colSpan?: number
     component?: ComponentType
     componentProps?: T,
-    placeholder?: string
+    placeholder?: string,
+    disabled?: boolean
 }
 
 export type ComponentType =

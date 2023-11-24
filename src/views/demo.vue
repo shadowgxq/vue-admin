@@ -2,7 +2,6 @@
     {{ state.data }}
     <ApiSelect v-model="state.data" :dictionaryFun="getAllRoleList" labelField="roleName" valueField="roleValue">
     </ApiSelect>
-    <Select v-model:selectedValue="state.data" :options="state.options"></Select>
 </template>
 <script setup lang="ts">
 // import ApiSelect from '@/components/ApiSelect/index.vue'

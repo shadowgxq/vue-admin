@@ -1,5 +1,8 @@
 <template>
     <Table :columns="state.columns" :dataSource="state.dataSource" :selection="true">
+        <template #table-column-operate>
+            <el-button type="text" size="small">修改</el-button>
+        </template>
     </Table>
 </template>
 
@@ -37,6 +40,12 @@ const state = reactive<{ dataSource: Array<any>, columns: ColumnType[] }>({
             title: '地址',
             dataIndex: 'address',
             key: 'address',
+        },
+        {
+            title: '操作',
+            dataIndex: 'operate',
+            key: 'operate',
+            align: "center"
         }
     ]
 })
