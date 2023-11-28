@@ -56,5 +56,7 @@ declare module '@vue/runtime-core' {
     Table: typeof import('./src/components/Table/index.vue')['default']
     TableColumn: typeof import('./src/components/Table/TableColumn.vue')['default']
     TableContext: typeof import('./src/components/Table/TableContext.vue')['default']
+    UseController: typeof import('./src/components/BasicTable/hooks/useController.vue')['default']
+    UseDialog: typeof import('./src/components/BasicTable/hooks/useDialog.vue')['default']
   }
 }

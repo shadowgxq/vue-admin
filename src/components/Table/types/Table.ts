@@ -1,9 +1,9 @@
 import type { TableProps as ELTableProps, TableColumnCtx } from 'element-plus'
 
 import { RendererElement, RendererNode, VNode } from 'vue';
-export type TableProps<T = unknown> = {
+export type TableProps<T = unknown, k = unknown> = {
     columns: ColumnsType<T>;
-    dataSource: T[];
+    dataSource: k[];
     selection?: boolean
 }
 //table props 

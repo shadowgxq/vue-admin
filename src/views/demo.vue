@@ -2,6 +2,7 @@
     {{ state.data }}
     <ApiSelect v-model="state.data" :dictionaryFun="getAllRoleList" labelField="roleName" valueField="roleValue">
     </ApiSelect>
+    <div class="democlass" v-bind="props">democlass</div>
 </template>
 <script setup lang="ts">
 // import ApiSelect from '@/components/ApiSelect/index.vue'
@@ -21,5 +22,12 @@ const state = reactive({
         }
     ]
 })
+
+const props = {
+    name: "shadow",
+    age: 18,
+    size: "mini"
+}
 </script>
+
 <style lang="less" scoped></style>

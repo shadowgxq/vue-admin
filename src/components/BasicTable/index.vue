@@ -11,15 +11,15 @@
         </Form>
     </div>
     <div class="basic-controller">
-        <el-button type="primary" :icon="Plus" @click="handleAdd">
+        <el-button type="primary" v-if="addBtn" :icon="Plus" @click="handleAdd">
             新增
         </el-button>
-        <el-button type="danger" :icon="Delete" @click="handleDelete">
+        <el-button type="danger" v-if="deleteBtn" :icon="Delete" @click="handleDelete">
             删除
         </el-button>
     </div>
     <!--table-->
-    <Table :columns="state.columns" :dataSource="listData.list" :selection="true">
+    <Table :columns="props.tableColumns" :dataSource="props.tableSource" :selection="true">
         <template v-for="(index, name) in $slots" v-slot:[name]="data">
             <slot :name="name" v-bind="(data as any)"></slot>
         </template>
@@ -41,7 +41,7 @@
             </Form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="handleClose">取消</el-button>
+                    <el-button @click="handleDialogClose">取消</el-button>
                     <el-button type="primary" @click="handleDialogConfirm">
                         新增
                     </el-button>
@@ -60,21 +60,16 @@ import Table from '@/components/Table/index.vue'
 import Form from '@/components/Form/index.vue'
 import { reactive, h, onMounted, ref, computed } from 'vue'
 import { usePagination } from '@/hooks/usePagination'
+import { useDialog } from './hooks/useDialog'
 import { getTableList } from '@/api/demo/table';
-import { getAllRoleList } from '@/api/sys/selectList';
 import { Plus, Delete } from '@element-plus/icons-vue'
-// getTableList({ page: 1, pageSize: 10 }).then(res => {
-//         console.log(res)
-//     })
-const dialogFormRef = ref<any>()
-
-const dialogState = reactive<{
-    type: "ADD" | "EDIT"
-}>({
-    type: "ADD"
+import { BasicTableProps } from './types/index'
+//数据源 props接受
+const props = withDefaults(defineProps<BasicTableProps>(), {
+    addBtn: true,
+    deleteBtn: true
 })
 
-//数据源 props接受
 const state = reactive<any>({
     columns: [
         {
@@ -126,49 +121,20 @@ const state = reactive<any>({
         }
     ]
 })
+
 const FormRef = ref<HTMLElement>();
-const dialogVisible = ref(false)
 
 const { pagination, listData, onPagination } = usePagination(getTableList, ['result', 'items'])
-//dialog相关的hooks START
 
-const getDialogTitle = computed(() => {
-    return dialogState.type == "ADD" ? "新增" : "编辑"
-})
-
-const handleAdd = () => {
-    dialogState.type = "ADD"
-    dialogVisible.value = true
-}
-
-const handleBeforeClose = (done: () => void) => {
-    handleRestFormData()
-    done()
-}
-
-function handleClose() {
-    handleRestFormData()
-    dialogVisible.value = false
-}
-
-function handleDialogConfirm() {
-    let state = dialogFormRef.value.handleValidate()
-    if (!state) return
-    //type
-    switch (dialogState.type) {
-        case "ADD":
-
-            break;
-        case "EDIT":
-            break;
-    }
-}
+const { dialogFormRef, dialogState, dialogVisible,
+    getDialogTitle, handleDialogConfirm, handleDialogClose,
+    handleBeforeClose } = useDialog(
+        { handleRestFormData }
+    )
 
 function handleRestFormData() {
     state.formData = dialogFormRef.value.handleRestFormData()
 }
-//dialog相关的hooks END
-
 
 //操作相关的hooks START
 function handleDelete() {
@@ -178,7 +144,10 @@ function handleSubmit() {
     onPagination(state.formData)
 }
 
-
+const handleAdd = () => {
+    dialogState.type = "ADD"
+    dialogVisible.value = true
+}
 function handleEdit(row) {
     dialogState.type = "EDIT"
     dialogVisible.value = true
@@ -193,11 +162,6 @@ function handlePaginationChange(value) {
     pagination.page = value
     onPagination(state.formData)
 }
-//操作相关的hooks END
-
-onMounted(() => {
-    onPagination(state.formData)
-})
 
 </script>
 
