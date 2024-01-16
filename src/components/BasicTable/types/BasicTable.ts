@@ -27,7 +27,7 @@ export interface BasicTableProps<T = unknown> {
 }
 //Required type
 export type stateType = Pick<BasicTableProps,
-    "tableColumns" | "formData" | "formSchema" | "searchFormSchema" | "searchFormSchema">
+    "tableColumns" | "formData" | "formSchema"| "serachFormData" | "searchFormSchema" | "searchFormSchema">
 
 //Optional type
 export type extraConfigType = Omit<BasicTableProps, keyof stateType | "tableSource">

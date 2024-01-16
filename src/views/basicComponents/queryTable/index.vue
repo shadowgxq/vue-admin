@@ -65,10 +65,6 @@ const state = reactive<stateType>({
             prop: "name",
             label: "姓名",
             colSpan: 12,
-            rules: [
-                { required: true, message: '请输入姓名', trigger: 'blur' },
-                { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
-            ],
         },
         {
             prop: "address",
